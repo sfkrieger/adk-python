@@ -47,10 +47,14 @@ class BaseTool(ABC):
   """Whether the tool is a long running operation, which typically returns a
   resource id first and finishes the operation later."""
 
+  custom_metadata: dict[str, Any]
+  """Custom metadata for the tool."""
+
   def __init__(self, *, name, description, is_long_running: bool = False):
     self.name = name
     self.description = description
     self.is_long_running = is_long_running
+    self.custom_metadata = {}
 
   def _get_declaration(self) -> Optional[types.FunctionDeclaration]:
     """Gets the OpenAPI specification of this tool in the form of a FunctionDeclaration.
